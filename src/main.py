@@ -19,23 +19,30 @@ shell = int(input("Number of shells to compute (integer): "))
 
 # a shell value of zero will only compute the origin, and return zero.
 
-def potential(i, j, k):
-    if (i + j + k) == 0: # origin : neutral
+def madelung(i, j, k):
+    if (i + j + k) == 0:
         return 0
 
-    V = e / (4 * math.pi * ep * a * math.sqrt(i**2 + j**2 + k**2))
+    constant = 1 / (a * math.sqrt(i**2 + j**2 + k**2))
 
-    if (i + j + k) % 2 == 0: # sodium : positive
+    return constant
+
+def potential(madelung):
+    V = (e / (4 * math.pi * ep)) * madelung
+
+    if (i + j + k) % 2 == 0:
         return V
 
-    elif (i + j + k) % 2 == 1: # chlorine : negative
+    elif (i + j + k) % 2 == 1:
         return -V
 
 total_potential = 0
 
-for i in range(-shell, shell + 1):
-    for j in range(-shell, shell + 1):
-        for k in range(-shell, shell + 1):
-            total_potential += potential(i, j, k)
+for i in range(shell + 1):
+    for j in range(shell + 1):
+        for k in range(shell + 1):
+            mad = madelung(i, j, k)
+
+            total_potential += potential(mad)
 
 print(f"Computed electric potential: {total_potential} V")
