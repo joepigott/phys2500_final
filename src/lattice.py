@@ -1,23 +1,20 @@
 from matplotlib import pyplot as plt
-import numpy as np
 
-x = np.linspace(-10, 10, 100)
-y = np.linspace(-10, 10, 100)
+fig = plt.figure()
 
-ax = plt.figure().add_subplot(projection="3d")
+ax = fig.add_subplot(projection='3d')
 
-shell = int(input("shell: "))
-
-for i in range(shell):
-    for j in range(shell):
-        for k in range(shell):
-            if (i + j + k) % 2 == 0:
+for i in range(-1, 2):
+    for j in range(-1, 2):
+        for k in range(-1, 2):
+            if i == 0 and j == 0 and k == 0:
+                color = 'black'
+            elif (i + j + k) % 2 == 0:
                 color = 'red'
             else:
-                color = 'green'
+                color = 'blue'
 
-            plt.plot(i, j, k, color=color)
-
-plt.plot(x, y, x**2 + y**2)
+            ax.scatter(i, j, k, color=color)
 
 plt.show()
+

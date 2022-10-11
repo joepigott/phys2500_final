@@ -20,23 +20,26 @@ shell = int(input("Number of shells to compute (integer): "))
 # a shell value of zero will only compute the origin, and return zero.
 
 def potential(i, j, k):
-    V = e / (4 * math.pi * ep * a * math.sqrt(i**2 + j**2 + k**2))
+    V = e / (4 * math.pi * ep * a * math.sqrt(i**2 + j**2 + k**2)) # from formula above
 
-    if (i + j + k) % 2 == 0:
+    if (i + j + k) % 2 == 0: # sodium ion : positive
         return V
 
-    else: return -V
+    else: return -V # chlorine ion : negative
 
 total_potential = 0
+
+# iterate over the 3-D shell and add up potentials
 
 for i in range(-shell, shell + 1):
     for j in range(-shell, shell + 1):
         for k in range(-shell, shell + 1):
-            if i == 0 and j == 0 and k == 0:
+            if i == 0 and j == 0 and k == 0: # ignore origin
                 continue
 
             total_potential += potential(i, j, k)
 
-madelung = total_potential * (4 * math.pi * ep * a / e)
+madelung = total_potential * (4 * math.pi * ep * a / e) # multiply over to solve for madelung const.
 
-print(f"{madelung}")
+print(f"Madelung Constant for {shell} shells: {madelung}")
+print(f"Total Potential for {shell} shells: {total_potential} V")
