@@ -1,6 +1,9 @@
 from matplotlib import pyplot as plt
 import numpy as np
 
+x = np.linspace(-10, 10, 100)
+y = np.linspace(-10, 10, 100)
+
 ax = plt.figure().add_subplot(projection="3d")
 
 shell = int(input("shell: "))
@@ -13,6 +16,8 @@ for i in range(shell):
             else:
                 color = 'green'
 
-            ax.plot(i, j, k, color=color)
+            plt.plot(i, j, k, color=color)
+
+plt.plot(x, y, x**2 + y**2)
 
 plt.show()

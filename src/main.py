@@ -19,30 +19,24 @@ shell = int(input("Number of shells to compute (integer): "))
 
 # a shell value of zero will only compute the origin, and return zero.
 
-def madelung(i, j, k):
-    if (i + j + k) == 0:
-        return 0
-
-    constant = 1 / (a * math.sqrt(i**2 + j**2 + k**2))
-
-    return constant
-
-def potential(madelung):
-    V = (e / (4 * math.pi * ep)) * madelung
+def potential(i, j, k):
+    V = e / (4 * math.pi * ep * a * math.sqrt(i**2 + j**2 + k**2))
 
     if (i + j + k) % 2 == 0:
         return V
 
-    elif (i + j + k) % 2 == 1:
-        return -V
+    else: return -V
 
 total_potential = 0
 
-for i in range(shell + 1):
-    for j in range(shell + 1):
-        for k in range(shell + 1):
-            mad = madelung(i, j, k)
+for i in range(-shell, shell + 1):
+    for j in range(-shell, shell + 1):
+        for k in range(-shell, shell + 1):
+            if i == 0 and j == 0 and k == 0:
+                continue
 
-            total_potential += potential(mad)
+            total_potential += potential(i, j, k)
 
-print(f"Computed electric potential: {total_potential} V")
+madelung = total_potential * (4 * math.pi * ep * a / e)
+
+print(f"{madelung}")
